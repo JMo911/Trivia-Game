@@ -117,7 +117,11 @@ function fetchQuestions (){
       if (count <= 0)
       {
          clearInterval(counter);
-         //counter ended, do something here
+         //event handler for time out
+         $(".card-body").empty();
+        var timeOut = $("<div>");
+        timeOut.text("Sorry, time ran out!");
+        $(".card-body").append(timeOut);
          setTimeout(fetchQuestions,5000);
       }
     
