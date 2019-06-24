@@ -96,6 +96,7 @@ var questions = {
 };
 
 function fetchQuestions (){
+    //BUG EVERY TIME I HIT 0
      var randomquestionnumber = Math.floor(Math.random()*(Object.keys(questions).length-1));
     //  console.log(randomquestionnumber);
 
@@ -117,10 +118,33 @@ function fetchQuestions (){
 }
 }
 
+// function gameMessages(){
+
+// }
+
 
 $(".card-body").delegate(":button", "click", function(){
-    console.log("this");
-    fetchQuestions();
+    // console.log($(this).hasClass("distractor"));
+
+    if ($(this).hasClass("distractor")){
+        
+        $(".card-body").empty();
+        var wrongAnswer = $("<div>");
+        wrongAnswer.text("Sorry, that's not right.");
+        $(".card-body").append(wrongAnswer);
+        setTimeout(fetchQuestions,5000);
+    }
+    else if ($(this).hasClass("keyedresponse")){
+        
+        $(".card-body").empty();
+        var rightAnswer = $("<div>");
+        rightAnswer.text("Well done!");
+        $(".card-body").append(rightAnswer);
+        setTimeout(fetchQuestions,5000);
+    }
+    else{fetchQuestions();}
+    
+    //  fetchQuestions();
 
 });
 
