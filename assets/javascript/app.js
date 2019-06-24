@@ -96,20 +96,20 @@ var questions = {
 };
 
 $(".btn").click(function fetchQuestions (question){
-    var randomquestion = questions[Math.floor(Math.random*(questions.length-1))];
-    console.log(randomquestion);
+    var randomquestionnumber = Math.floor(Math.random*(questions.length-1));
+    console.log(randomquestionnumber);
 
     var keyedResponse = $("<button>");
-    keyedResponse.text(questions[question].Answer);
+    keyedResponse.text(questions["Question 1"].Answer);
     $(".card-body").append(keyedResponse);
-    $(".card-body").empty().append(questions[question].Question);
-    for (i=0;i<questions[question].Distractors.length; i++) {
+    $(".card-body").empty().append(questions["Question 1"].Question);
+    for (i=0;i<questions["Question 1"].Distractors.length; i++) {
     var answerbuttons = $("<button>");
-    answerbuttons.text(questions[question].Distractors[i]);
+    answerbuttons.text(questions["Question 1"].Distractors[i]);
     $(".card-body").append(answerbuttons);
 }
 
-fetchQuestions(randomquestion);
+// fetchQuestions(randomquestion);
 
 
     
