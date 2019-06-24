@@ -97,11 +97,33 @@ var questions = {
 
 function fetchQuestions (){
     //BUG EVERY TIME I HIT 0
+    //MAKE SURE WE'RE NOT REPEATING QUESTIONS
      var randomquestionnumber = Math.floor(Math.random()*(Object.keys(questions).length-1));
     //  console.log(randomquestionnumber);
 
+
+    
     //CLEAR CARD BODY
     $(".card-body").empty();
+    //START TIMER
+    var timerDiv=$("<div>")
+    var count=31;
+    var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+    $(".card-body").append(timerDiv);
+
+    function timer()
+    {
+      count=count-1;
+      if (count <= 0)
+      {
+         clearInterval(counter);
+         //counter ended, do something here
+         setTimeout(fetchQuestions,5000);
+      }
+    
+      timerDiv.text("Time Remaining: " + count);
+    }
+    
     // APPEND QUESTION ITSELF
     $(".card-body").append(questions["Question " + randomquestionnumber].Question);
     // APPEND KEYED RESPONSE
@@ -115,6 +137,7 @@ function fetchQuestions (){
     answerbuttons.text(questions["Question " + randomquestionnumber].Distractors[i]);
     answerbuttons.addClass("distractor responseoption");
     $(".card-body").append(answerbuttons);
+
 }
 }
 
@@ -127,19 +150,23 @@ $(".card-body").delegate(":button", "click", function(){
     // console.log($(this).hasClass("distractor"));
 
     if ($(this).hasClass("distractor")){
-        
+        //tell them good job and show pic
         $(".card-body").empty();
         var wrongAnswer = $("<div>");
         wrongAnswer.text("Sorry, that's not right.");
         $(".card-body").append(wrongAnswer);
+
         setTimeout(fetchQuestions,5000);
     }
     else if ($(this).hasClass("keyedresponse")){
-        
+        //tell them what the correct answer was, and show pic
         $(".card-body").empty();
         var rightAnswer = $("<div>");
         rightAnswer.text("Well done!");
         $(".card-body").append(rightAnswer);
+        var photo=$("<img>");
+        photo.attr("src","assets/images/Elephanticecream.jpg");
+        $(".card-body").append(photo);
         setTimeout(fetchQuestions,5000);
     }
     else{fetchQuestions();}
