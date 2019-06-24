@@ -97,7 +97,7 @@ var questions = {
 
 function fetchQuestions (){
      var randomquestionnumber = Math.floor(Math.random()*(Object.keys(questions).length-1));
-     console.log(randomquestionnumber);
+    //  console.log(randomquestionnumber);
 
     //CLEAR CARD BODY
     $(".card-body").empty();
@@ -117,9 +117,16 @@ function fetchQuestions (){
 }
 }
 
-$(".btn").click(function(){
+
+$(".card-body").delegate(":button", "click", function(){
+    console.log("this");
     fetchQuestions();
+
 });
+
+
+
+
 
 
 
