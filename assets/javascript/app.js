@@ -98,7 +98,7 @@ var questions = {
 var counter;
 var correctAnswers=0;
 var incorrectAnswers=0;
-
+var previousQuestionNumbers=[];
 
 
 
@@ -136,7 +136,8 @@ function fetchQuestions (){
       timerDiv.text("Time Remaining: " + count);
     }
     
-    // APPEND QUESTION ITSELF
+    // // APPEND QUESTION ITSELF
+    // if (previousQuestionNumbers.indexOf(randomquestionnumber) !== -1 ) {
     $(".card-body").append(questions["Question " + randomquestionnumber].Question);
     // APPEND KEYED RESPONSE
     var keyedResponse = $("<button>");
@@ -149,13 +150,12 @@ function fetchQuestions (){
     answerbuttons.text(questions["Question " + randomquestionnumber].Distractors[i]);
     answerbuttons.addClass("distractor responseoption");
     $(".card-body").append(answerbuttons);
-
+    previousQuestionNumbers.push(randomquestionnumber);
+    //push random number to a previous number array? then use indexof !==-1 to make sure it's a new question?
+    }
 }
-}
+//  else { fetchQuestions()}
 
-// function gameMessages(){
-
-// }
 
 
 $(".card-body").delegate(":button", "click", function(){
