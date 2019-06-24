@@ -94,6 +94,8 @@ var questions = {
     
 
 };
+var counter;
+
 
 function fetchQuestions (){
     //BUG EVERY TIME I HIT 0
@@ -108,7 +110,8 @@ function fetchQuestions (){
     //START TIMER
     var timerDiv=$("<div>")
     var count=31;
-    var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+    clearInterval(counter);
+    counter=setInterval(timer, 1000); //1000 will  run it every 1 second
     $(".card-body").append(timerDiv);
 
     function timer()
@@ -172,6 +175,7 @@ $(".card-body").delegate(":button", "click", function(){
         var photo=$("<img>");
         photo.attr("src","assets/images/Elephanticecream.jpg");
         $(".card-body").append(photo);
+        // console.log($(this));
         
         setTimeout(fetchQuestions,5000);
   
