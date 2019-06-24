@@ -95,27 +95,31 @@ var questions = {
 
 };
 
-$(".btn").click(function fetchQuestions (question){
-    var randomquestionnumber = Math.floor(Math.random*(questions.length-1));
-    console.log(randomquestionnumber);
+function fetchQuestions (){
+     var randomquestionnumber = Math.floor(Math.random()*(Object.keys(questions).length-1));
+     console.log(randomquestionnumber);
 
+    //CLEAR CARD BODY
+    $(".card-body").empty();
+    // APPEND QUESTION ITSELF
+    $(".card-body").append(questions["Question " + randomquestionnumber].Question);
+    // APPEND KEYED RESPONSE
     var keyedResponse = $("<button>");
-    keyedResponse.text(questions["Question 1"].Answer);
+    keyedResponse.text(questions["Question " + randomquestionnumber].Answer);
+    keyedResponse.addClass("keyedresponse responseoption");
     $(".card-body").append(keyedResponse);
-    $(".card-body").empty().append(questions["Question 1"].Question);
-    for (i=0;i<questions["Question 1"].Distractors.length; i++) {
+    // APPEND DISTRACTORS
+    for (i=0;i<questions["Question " + randomquestionnumber].Distractors.length; i++) {
     var answerbuttons = $("<button>");
-    answerbuttons.text(questions["Question 1"].Distractors[i]);
+    answerbuttons.text(questions["Question " + randomquestionnumber].Distractors[i]);
+    answerbuttons.addClass("distractor responseoption");
     $(".card-body").append(answerbuttons);
 }
+}
 
-// fetchQuestions(randomquestion);
-
-
-    
+$(".btn").click(function(){
+    fetchQuestions();
 });
 
 
 
-
-// console.log(questions);
