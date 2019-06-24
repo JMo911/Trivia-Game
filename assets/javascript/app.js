@@ -94,7 +94,12 @@ var questions = {
     
 
 };
+
 var counter;
+var correctAnswers=0;
+var incorrectAnswers=0;
+
+
 
 
 function fetchQuestions (){
@@ -162,7 +167,7 @@ $(".card-body").delegate(":button", "click", function(){
         var wrongAnswer = $("<div>");
         wrongAnswer.text("Sorry, that's not right.");
         $(".card-body").append(wrongAnswer);
-        
+        incorrectAnswers = incorrectAnswers++;
         setTimeout(fetchQuestions,5000);
         
     }
@@ -175,6 +180,7 @@ $(".card-body").delegate(":button", "click", function(){
         var photo=$("<img>");
         photo.attr("src","assets/images/Elephanticecream.jpg");
         $(".card-body").append(photo);
+        correctAnswers = correctAnswers++;
         // console.log($(this));
         
         setTimeout(fetchQuestions,5000);
