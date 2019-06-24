@@ -98,7 +98,7 @@ var questions = {
 function fetchQuestions (){
     //BUG EVERY TIME I HIT 0
     //MAKE SURE WE'RE NOT REPEATING QUESTIONS
-     var randomquestionnumber = Math.floor(Math.random()*(Object.keys(questions).length-1));
+     var randomquestionnumber = Math.ceil(Math.random()*(Object.keys(questions).length-1));
     //  console.log(randomquestionnumber);
 
 
@@ -159,8 +159,9 @@ $(".card-body").delegate(":button", "click", function(){
         var wrongAnswer = $("<div>");
         wrongAnswer.text("Sorry, that's not right.");
         $(".card-body").append(wrongAnswer);
-
+        
         setTimeout(fetchQuestions,5000);
+        
     }
     else if ($(this).hasClass("keyedresponse")){
         //tell them what the correct answer was, and show pic
@@ -171,7 +172,9 @@ $(".card-body").delegate(":button", "click", function(){
         var photo=$("<img>");
         photo.attr("src","assets/images/Elephanticecream.jpg");
         $(".card-body").append(photo);
+        
         setTimeout(fetchQuestions,5000);
+  
     }
     else{fetchQuestions();}
     
