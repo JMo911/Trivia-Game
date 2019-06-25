@@ -130,6 +130,7 @@ function fetchQuestions (){
         timeOut.text("Sorry, time ran out!");
         $(".card-body").append(timeOut);
          setTimeout(fetchQuestions,5000);
+        //  timeouts++;
       }
     
       timerDiv.text("Time Remaining: " + count);
@@ -139,7 +140,7 @@ function fetchQuestions (){
     if (previousQuestionNumbers.indexOf(randomquestionnumber) === -1 ) {
     $(".card-body").append(questions["Question " + randomquestionnumber].Question);
     previousQuestionNumbers.push(randomquestionnumber);
-    console.log(previousQuestionNumbers);
+    
     
     //grab associated pic
     picsource = questions["Question " + randomquestionnumber].Image;
@@ -159,6 +160,7 @@ function fetchQuestions (){
     //push random number to a previous number array? then use indexof !==-1 to make sure it's a new question?
     }
 }   else if (previousQuestionNumbers.length === 12){
+    
     $(".card-body").empty();
     $(".card-body").append("<p>Correct Answers: " + correctAnswers + "</p>");
     $(".card-body").append("<p>Incorrect Answers: " + incorrectAnswers + "</p>");
@@ -177,14 +179,18 @@ function fetchQuestions (){
 
 $(".card-body").delegate(":button", "click", function(){
     // console.log($(this).hasClass("distractor"));
+    
 
     if ($(this).hasClass("distractor")){
         //tell them good job and show pic
         $(".card-body").empty();
         var wrongAnswer = $("<div>");
-        wrongAnswer.text("Sorry, that's not right.");
+        wrongAnswer.text("Sorry, that's not right. Correct answer was: ");
         $(".card-body").append(wrongAnswer);
-        incorrectAnswers++;
+        var photo=$("<img>");
+        photo.attr("src",picsource);
+        $(".card-body").append(photo);
+        ++incorrectAnswers;
         setTimeout(fetchQuestions,5000);
         
     }
@@ -197,14 +203,13 @@ $(".card-body").delegate(":button", "click", function(){
         var photo=$("<img>");
         photo.attr("src",picsource);
         $(".card-body").append(photo);
-        correctAnswers++;
-        console.log($(this));
+        ++correctAnswers;
+        
         
         setTimeout(fetchQuestions,5000);
   
     }
     else{
-        // timeouts++;
         fetchQuestions();}
     
     
