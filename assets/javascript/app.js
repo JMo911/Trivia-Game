@@ -96,6 +96,7 @@ var questions = {
 };
 
 var counter;
+var currentCorrectAnswer;
 var correctAnswers=0;
 var incorrectAnswers=0;
 var timeouts=0;
@@ -149,6 +150,9 @@ function fetchQuestions (){
     keyedResponse.text(questions["Question " + randomquestionnumber].Answer);
     keyedResponse.addClass("keyedresponse responseoption");
     $(".card-body").append(keyedResponse);
+
+    //storing correct answer for display if they answer incorrectly
+    currentCorrectAnswer = questions["Question " + randomquestionnumber].Answer;
     
     // APPEND DISTRACTORS
     for (i=0;i<questions["Question " + randomquestionnumber].Distractors.length; i++) {
@@ -185,7 +189,7 @@ $(".card-body").delegate(":button", "click", function(){
         //tell them good job and show pic
         $(".card-body").empty();
         var wrongAnswer = $("<div>");
-        wrongAnswer.text("Sorry, that's not right. Correct answer was: ");
+        wrongAnswer.text("Sorry, that's not right. Correct answer was: " + currentCorrectAnswer);
         $(".card-body").append(wrongAnswer);
         var photo=$("<img>");
         photo.attr("src",picsource);
