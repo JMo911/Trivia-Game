@@ -105,7 +105,7 @@ var picsource;
 function fetchQuestions (){
     //BUG EVERY TIME I HIT 0
     //MAKE SURE WE'RE NOT REPEATING QUESTIONS
-     var randomquestionnumber = Math.ceil(Math.random()*(Object.keys(questions).length-1));
+     var randomquestionnumber = Math.ceil(Math.random()*(Object.keys(questions).length));
     //  console.log(randomquestionnumber);
 
 
@@ -137,7 +137,7 @@ function fetchQuestions (){
     }
     
     // // APPEND QUESTION ITSELF
-    // if (previousQuestionNumbers.indexOf(randomquestionnumber) !== -1 ) {
+    if (previousQuestionNumbers.indexOf(randomquestionnumber) === -1 ) {
     $(".card-body").append(questions["Question " + randomquestionnumber].Question);
     
     //grab associated pic
@@ -158,6 +158,13 @@ function fetchQuestions (){
     //push random number to a previous number array? then use indexof !==-1 to make sure it's a new question?
     }
 }
+    else {
+        fetchQuestions();
+    }
+
+
+}
+//END OF FETCHQUESTIONS FUNCTION
 //  else { fetchQuestions()}
 
 
