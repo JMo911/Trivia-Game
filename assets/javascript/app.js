@@ -98,15 +98,14 @@ var questions = {
 var counter;
 var correctAnswers=0;
 var incorrectAnswers=0;
+var timeouts=0;
 var previousQuestionNumbers=[];
 var picsource;
 
 
-function fetchQuestions (){
-    //BUG EVERY TIME I HIT 0
-    //MAKE SURE WE'RE NOT REPEATING QUESTIONS
+function fetchQuestions (){  
      var randomquestionnumber = Math.ceil(Math.random()*(Object.keys(questions).length));
-    //  console.log(randomquestionnumber);
+    
 
 
     
@@ -139,6 +138,8 @@ function fetchQuestions (){
     // // APPEND QUESTION ITSELF
     if (previousQuestionNumbers.indexOf(randomquestionnumber) === -1 ) {
     $(".card-body").append(questions["Question " + randomquestionnumber].Question);
+    previousQuestionNumbers.push(randomquestionnumber);
+    console.log(previousQuestionNumbers);
     
     //grab associated pic
     picsource = questions["Question " + randomquestionnumber].Image;
@@ -154,9 +155,14 @@ function fetchQuestions (){
     answerbuttons.text(questions["Question " + randomquestionnumber].Distractors[i]);
     answerbuttons.addClass("distractor responseoption");
     $(".card-body").append(answerbuttons);
-    previousQuestionNumbers.push(randomquestionnumber);
+    ;
     //push random number to a previous number array? then use indexof !==-1 to make sure it's a new question?
     }
+}   else if (previousQuestionNumbers.length === 12){
+    $(".card-body").empty();
+    $(".card-body").append("<p>Correct Answers: " + correctAnswers + "</p>");
+    $(".card-body").append("<p>Incorrect Answers: " + incorrectAnswers + "</p>");
+    $(".card-body").append("<p>Timeouts: " + incorrectAnswers + "</p>");
 }
     else {
         fetchQuestions();
@@ -165,7 +171,7 @@ function fetchQuestions (){
 
 }
 //END OF FETCHQUESTIONS FUNCTION
-//  else { fetchQuestions()}
+
 
 
 
@@ -178,7 +184,7 @@ $(".card-body").delegate(":button", "click", function(){
         var wrongAnswer = $("<div>");
         wrongAnswer.text("Sorry, that's not right.");
         $(".card-body").append(wrongAnswer);
-        incorrectAnswers = incorrectAnswers++;
+        incorrectAnswers++;
         setTimeout(fetchQuestions,5000);
         
     }
@@ -191,13 +197,15 @@ $(".card-body").delegate(":button", "click", function(){
         var photo=$("<img>");
         photo.attr("src",picsource);
         $(".card-body").append(photo);
-        correctAnswers = correctAnswers++;
+        correctAnswers++;
         console.log($(this));
         
         setTimeout(fetchQuestions,5000);
   
     }
-    else{fetchQuestions();}
+    else{
+        // timeouts++;
+        fetchQuestions();}
     
     
 
