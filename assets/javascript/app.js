@@ -105,9 +105,21 @@ var picsource;
 
 
 function fetchQuestions (){  
+
+
+
      var randomquestionnumber = Math.ceil(Math.random()*(Object.keys(questions).length));
     
 
+    if (previousQuestionNumbers.length >= 13){
+    
+        $(".card-body").empty();
+        clearTimeout(counter);
+        $(".card-body").append("<h2>That's all of the questions we have for you. Thank you for playing!</h2>")
+        $(".card-body").append("<p>Correct Answers: " + correctAnswers + "</p>");
+        $(".card-body").append("<p>Incorrect Answers: " + incorrectAnswers + "</p>");
+        $(".card-body").append("<p>Timeouts: " + timeouts + "</p>");
+    } else {
 
     
     //CLEAR CARD BODY
@@ -131,7 +143,7 @@ function fetchQuestions (){
         timeOut.text("Sorry, time ran out!");
         $(".card-body").append(timeOut);
          setTimeout(fetchQuestions,5000);
-        //  timeouts++;
+        timeouts++;
       }
     
       timerDiv.text("Time Remaining: " + count);
@@ -163,18 +175,12 @@ function fetchQuestions (){
     ;
     //push random number to a previous number array? then use indexof !==-1 to make sure it's a new question?
     }
-}   else if (previousQuestionNumbers.length === 12){
-    
-    $(".card-body").empty();
-    $(".card-body").append("<p>Correct Answers: " + correctAnswers + "</p>");
-    $(".card-body").append("<p>Incorrect Answers: " + incorrectAnswers + "</p>");
-    $(".card-body").append("<p>Timeouts: " + incorrectAnswers + "</p>");
-}
+}   
     else {
         fetchQuestions();
     }
 
-
+    }
 }
 //END OF FETCHQUESTIONS FUNCTION
 
