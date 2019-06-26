@@ -140,9 +140,8 @@ function fetchQuestions (){
 
 
 
-     var randomquestionnumber = Math.ceil(Math.random()*(Object.keys(questions).length));
+    var randomquestionnumber = Math.ceil(Math.random()*(Object.keys(questions).length));
     
-//RESET THIS NUMBER TO 13!!
     if (previousQuestionNumbers.length >= 13){
     
         $(".card-body").empty();
@@ -164,6 +163,7 @@ function fetchQuestions (){
     
     //CLEAR CARD BODY
     $(".card-body").empty();
+    
     //START TIMER
     var timerDiv=$("<div>")
     var count=31;
@@ -176,14 +176,19 @@ function fetchQuestions (){
       count=count-1;
       if (count <= 0)
       {
-         clearInterval(counter);
-         //event handler for time out
-         $(".card-body").empty();
+        clearInterval(counter);
+        //event handler for time out
+        $(".card-body").empty();
         var timeOut = $("<div>");
         timeOut.text("Sorry, time ran out!");
         $(".card-body").append(timeOut);
-         setTimeout(fetchQuestions,5000);
+        setTimeout(fetchQuestions,5000);
         timeouts++;
+      } else if (count <=5) {
+          timerDiv.css({
+            "color": "red",
+            "font-weight": "800"
+        });
       }
     
       timerDiv.text("Time Remaining: " + count);
@@ -191,7 +196,7 @@ function fetchQuestions (){
     
     // // APPEND QUESTION ITSELF
     if (previousQuestionNumbers.indexOf(randomquestionnumber) === -1 ) {
-    $(".card-body").append(questions["Question " + randomquestionnumber].Question);
+    $(".card-body").append("<h5>" + questions["Question " + randomquestionnumber].Question + "</h5>");
     previousQuestionNumbers.push(randomquestionnumber);
     
     
@@ -206,7 +211,7 @@ function fetchQuestions (){
     // APPEND KEYED RESPONSE
     var keyedResponse = $("<button>");
     keyedResponse.text(questions["Question " + randomquestionnumber].Answer);
-    keyedResponse.addClass("keyedresponse responseoption");
+    keyedResponse.addClass("keyedresponse responseoption btn btn-dark");
     $(".responsearea").append(keyedResponse);
 
     //storing correct answer for display if they answer incorrectly
@@ -216,7 +221,7 @@ function fetchQuestions (){
     for (i=0;i<questions["Question " + randomquestionnumber].Distractors.length; i++) {
     var answerbuttons = $("<button>");
     answerbuttons.text(questions["Question " + randomquestionnumber].Distractors[i]);
-    answerbuttons.addClass("distractor responseoption");
+    answerbuttons.addClass("distractor responseoption btn btn-dark");
     $(".responsearea").append(answerbuttons);    
     }
     
@@ -248,10 +253,11 @@ $(".card-body").delegate(":button", "click", function(){
         //tell them good job and show pic
         $(".card-body").empty();
         var wrongAnswer = $("<div>");
-        wrongAnswer.text("Sorry, that's not right. Correct answer was: " + currentCorrectAnswer);
+        wrongAnswer.html("<h5>Sorry, that's not right.</h5>" + "<h6>Correct answer was: " + currentCorrectAnswer + "</h6>");
         $(".card-body").append(wrongAnswer);
         var photo=$("<img>");
         photo.attr("src",picsource);
+        photo.addClass("img-fluid");
         $(".card-body").append(photo);
         ++incorrectAnswers;
         setTimeout(fetchQuestions,5000);
@@ -261,10 +267,11 @@ $(".card-body").delegate(":button", "click", function(){
         //tell them what the correct answer was, and show pic
         $(".card-body").empty();
         var rightAnswer = $("<div>");
-        rightAnswer.text("Well done!");
+        rightAnswer.html("<h5>Well done!</h5>");
         $(".card-body").append(rightAnswer);
         var photo=$("<img>");
         photo.attr("src",picsource);
+        photo.addClass("img-fluid");
         $(".card-body").append(photo);
         ++correctAnswers;
         
