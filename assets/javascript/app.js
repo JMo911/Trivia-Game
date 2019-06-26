@@ -177,6 +177,7 @@ function fetchQuestions (){
       if (count <= 0)
       {
         clearInterval(counter);
+        clearTimeout(counter);
         //event handler for time out
         $(".card-body").empty();
         var timeOut = $("<div>");
@@ -184,12 +185,7 @@ function fetchQuestions (){
         $(".card-body").append(timeOut);
         setTimeout(fetchQuestions,5000);
         timeouts++;
-      } else if (count <=5) {
-          timerDiv.css({
-            "color": "red",
-            "font-weight": "800"
-        });
-      }
+      } 
     
       timerDiv.text("Time Remaining: " + count);
     }
@@ -252,6 +248,7 @@ $(".card-body").delegate(":button", "click", function(){
     if ($(this).hasClass("distractor")){
         //tell them good job and show pic
         $(".card-body").empty();
+        clearTimeout(counter);
         var wrongAnswer = $("<div>");
         wrongAnswer.html("<h5>Sorry, that's not right.</h5>" + "<h6>Correct answer was: " + currentCorrectAnswer + "</h6>");
         $(".card-body").append(wrongAnswer);
@@ -266,6 +263,7 @@ $(".card-body").delegate(":button", "click", function(){
     else if ($(this).hasClass("keyedresponse")){
         //tell them what the correct answer was, and show pic
         $(".card-body").empty();
+        clearTimeout(counter);
         var rightAnswer = $("<div>");
         rightAnswer.html("<h5>Well done!</h5>");
         $(".card-body").append(rightAnswer);
