@@ -155,13 +155,19 @@ function fetchQuestions (){
     previousQuestionNumbers.push(randomquestionnumber);
     
     
-    //grab associated pic
+    //grab associated pic for display upon choosing answer
     picsource = questions["Question " + randomquestionnumber].Image;
+
+    //DIV FOR RESPONSE OPTIONS
+    var responsearea = $("<div>");
+    responsearea.addClass("responsearea");
+    $(".card-body").append(responsearea);
+
     // APPEND KEYED RESPONSE
     var keyedResponse = $("<button>");
     keyedResponse.text(questions["Question " + randomquestionnumber].Answer);
     keyedResponse.addClass("keyedresponse responseoption");
-    $(".card-body").append(keyedResponse);
+    $(".responsearea").append(keyedResponse);
 
     //storing correct answer for display if they answer incorrectly
     currentCorrectAnswer = questions["Question " + randomquestionnumber].Answer;
@@ -171,16 +177,36 @@ function fetchQuestions (){
     var answerbuttons = $("<button>");
     answerbuttons.text(questions["Question " + randomquestionnumber].Distractors[i]);
     answerbuttons.addClass("distractor responseoption");
-    $(".card-body").append(answerbuttons);
-    ;
-    //push random number to a previous number array? then use indexof !==-1 to make sure it's a new question?
+    $(".responsearea").append(answerbuttons);    
     }
+    
+    
 }   
     else {
         fetchQuestions();
-    }
+        }
+
+        
 
     }
+    //REARRANGE ORDER OF RESPONSE OPTIONS ON THE PAGE
+
+    //THIS WORKS BUT RUINS CARD BODY
+    $(".responsearea").html($(".responsearea .responseoption").sort(function(){
+        return Math.random()-0.5;
+    }));
+
+    // function randomizeresponses() {
+    // var previousrandomnumbers =[];
+    // for (i=0; i<4; i++) {
+    //     if (randomnumber !== previousrandomnumbers) {
+    //     var randomnumber = Math.floor(Math.random()*4);
+    //     previousQuestionNumbers.push(randomnumber);
+    //     } else{
+    //         randomizeresponses()}
+    // }
+    // // $(".responseoption").attr("data-position",position)
+    // }
 }
 //END OF FETCHQUESTIONS FUNCTION
 
@@ -188,7 +214,7 @@ function fetchQuestions (){
 
 
 $(".card-body").delegate(":button", "click", function(){
-    // console.log($(this).hasClass("distractor"));
+   
     
 
     if ($(this).hasClass("distractor")){
