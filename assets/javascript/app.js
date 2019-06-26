@@ -103,6 +103,38 @@ var timeouts=0;
 var previousQuestionNumbers=[];
 var picsource;
 
+function init(){
+    $(".card-body").empty();
+    var cardTitle= $("<h5>");
+    cardTitle.text("Wonderful World of Disney - Trivia Challenge");
+    cardTitle.addClass("card-title");
+    $(".card-body").append(cardTitle);
+
+    
+    var cardSubtitle= $("<h6>");
+    cardSubtitle.text("Get ready to be challenged");
+    cardSubtitle.addClass("card-subtitle mb-2 text-muted");
+    $(".card-body").append(cardSubtitle);
+
+    
+    var cardText= $("<p>");
+    cardText.text("Click on the start button when you're ready to begin.");
+    cardText.addClass("card-text");
+    $(".card-body").append(cardText);
+
+    var startButton= $("<button>");
+    startButton.text("Start");
+    startButton.addClass("btn btn-dark");
+    startButton.attr("type", "button");
+    $(".card-body").append(startButton);
+
+}
+
+
+
+//RUN INIT FUNCTION FOR INITIAL STATE.
+$(document).ready(init());
+
 
 function fetchQuestions (){  
 
@@ -110,7 +142,7 @@ function fetchQuestions (){
 
      var randomquestionnumber = Math.ceil(Math.random()*(Object.keys(questions).length));
     
-
+//RESET THIS NUMBER TO 13!!
     if (previousQuestionNumbers.length >= 13){
     
         $(".card-body").empty();
@@ -119,6 +151,14 @@ function fetchQuestions (){
         $(".card-body").append("<p>Correct Answers: " + correctAnswers + "</p>");
         $(".card-body").append("<p>Incorrect Answers: " + incorrectAnswers + "</p>");
         $(".card-body").append("<p>Timeouts: " + timeouts + "</p>");
+        var restartbutton = $("<button>");
+        restartbutton.addClass("restartbutton btn btn-dark");
+        restartbutton.text("Play Again?");
+        $(".card-body").append(restartbutton);
+        $(".restartbutton").click(function(){
+            init();
+        })
+
     } else {
 
     
@@ -190,23 +230,10 @@ function fetchQuestions (){
 
     }
     //REARRANGE ORDER OF RESPONSE OPTIONS ON THE PAGE
-
-    //THIS WORKS BUT RUINS CARD BODY
     $(".responsearea").html($(".responsearea .responseoption").sort(function(){
         return Math.random()-0.5;
     }));
 
-    // function randomizeresponses() {
-    // var previousrandomnumbers =[];
-    // for (i=0; i<4; i++) {
-    //     if (randomnumber !== previousrandomnumbers) {
-    //     var randomnumber = Math.floor(Math.random()*4);
-    //     previousQuestionNumbers.push(randomnumber);
-    //     } else{
-    //         randomizeresponses()}
-    // }
-    // // $(".responseoption").attr("data-position",position)
-    // }
 }
 //END OF FETCHQUESTIONS FUNCTION
 
