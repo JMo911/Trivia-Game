@@ -1,4 +1,4 @@
-Welcome to the Wonderful World of Disnet - Trivia Challenge!
+Welcome to the Wonderful World of Disney - Trivia Challenge!
 
 We've set up several unique questions to test your Disney knowledge. 
 
