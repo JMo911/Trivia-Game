@@ -104,6 +104,7 @@ var previousQuestionNumbers=[];
 var picsource;
 
 function init(){
+    previousQuestionNumbers=[];
     $(".card-body").empty();
     var cardTitle= $("<h5>");
     cardTitle.text("Wonderful World of Disney - Trivia Challenge");
